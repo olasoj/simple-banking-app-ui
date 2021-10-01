@@ -1,10 +1,9 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { FC } from 'react';
 import { Link } from 'react-router-dom';
 import { getPageNumbers, getPageNumberClass } from './PaginationService'
 
 
-const Pagination = ({ totalNumberOfRecord, currentPage, pageSize, onPageChange }) => {
+const Pagination: FC<Props> = ({ totalNumberOfRecord, currentPage, pageSize, onPageChange }) => {
   const pages = getPageNumbers(totalNumberOfRecord, pageSize)
 
   return (
@@ -22,11 +21,13 @@ const Pagination = ({ totalNumberOfRecord, currentPage, pageSize, onPageChange }
   );
 };
 
-Pagination.propTypes = {
-  totalNumberOfRecord: PropTypes.number.isRequired,
-  currentPage: PropTypes.number.isRequired,
-  pageSize: PropTypes.number.isRequired,
-  onPageChange: PropTypes.func.isRequired
-};
+
+
+interface Props {
+  totalNumberOfRecord: number;
+  currentPage: number;
+  pageSize: number;
+  onPageChange: (p: number) => void;
+}
 
 export default Pagination;

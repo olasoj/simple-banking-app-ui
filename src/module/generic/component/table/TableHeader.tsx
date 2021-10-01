@@ -1,7 +1,11 @@
-import React, { Fragment } from 'react';
+import React, { FC, Fragment } from 'react';
 
-const TableHeader = ({ columns }) => {
-  const renderIcon = column => {
+interface Props {
+  columns: Array<ColumnHeader>;
+}
+
+const TableHeader: FC<Props> = ({ columns }) => {
+  const renderIcon = (column: ColumnHeader) => {
     return <i className='fa fa-sort-desc' />;
   };
 
@@ -23,5 +27,15 @@ const TableHeader = ({ columns }) => {
     </Fragment>
   );
 };
+
+
+interface ColumnHeader {
+  id: number;
+  label?: string;
+  path?: string;
+  content?: (param: any) => {};
+};
+
+
 
 export default TableHeader;

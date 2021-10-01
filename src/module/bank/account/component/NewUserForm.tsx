@@ -2,12 +2,12 @@ import React, { Fragment } from 'react';
 import { toast } from 'react-toastify';
 
 import * as yup from 'yup';
-import Form from '../../generic/component/form/Form';
-import { addUser, getDistinctValues } from '../userService';
+import Form from '../../../generic/component/form/Form';
+import * as accountService from '../accountService';
 
 class NewUserForm extends Form {
-  constructor() {
-    super();
+  constructor(props: any) {
+    super(props);
     this.state = {
       data: {
         email: "", fullName: "", username: "",
@@ -43,7 +43,7 @@ class NewUserForm extends Form {
       .required("Interest is required")
       .label('interest'),
 
-    yearsOfExperience: yup.number("Please enter a valid positive number.")
+    yearsOfExperience: yup.number()
       .required("Please enter a valid positive number.")
       .positive("Please enter a valid positive number.")
       .integer("Please enter a valid positive number.")
@@ -62,27 +62,27 @@ class NewUserForm extends Form {
   }
 
   async getDistinctWorkCategory() {
-    const { data } = this.state;
-    const { data: distinctValues } = await getDistinctValues();
-    this.resolveNewUsersState(distinctValues, data);
+    // const { data } = this.state;
+    // const { data: distinctValues } = await getDistinctValues();
+    // this.resolveNewUsersState(distinctValues, data);
   }
 
-  resolveNewUsersState(distinctValues, data) {
-    this.setState({ data: { ...data, distinctWorkCategory: [...distinctValues.distinctWorkCategories] } });
-  }
+  // resolveNewUsersState(distinctValues, data) {
+  //   this.setState({ data: { ...data, distinctWorkCategory: [...distinctValues.distinctWorkCategories] } });
+  // }
 
   doSubmit = async () => {
     try {
       toast.info("Creating user")
       const { data } = this.state
-      data.yearsOfExperience = parseInt(data.yearsOfExperience)
-      const { data: { message } } = await addUser(data);
-      toast.success(message)
-      this.props.history.replace("/users")
+      // data.yearsOfExperience = parseInt(data.yearsOfExperience)
+      // const { data: { message } } = await addUser(data);
+      toast.success("message")
+      // this.props.history.replace("/users")
     } catch ({ response }) {
       console.log(response)
-      if (response && response.status === 400)
-        return toast.error("Server: validation error")
+      // if (response && response.status === 400)
+      //   return toast.error("Server: validation error")
       toast.error("Server: service unavailable, please try later")
 
     }

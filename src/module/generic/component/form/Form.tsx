@@ -4,13 +4,21 @@ import Select from './Select';
 import * as yup from 'yup';
 import { each, groupBy, keys } from 'lodash-es';
 
-class Form extends Component {
-  constructor() {
-    super();
-    this.state = { data: {}, errors: {} };
+
+interface IStateSchema {
+  data: any;
+  errors: any;
+};
+
+class Form extends Component<IStateSchema> {
+  schema: any;
+
+  constructor(props: any) {
+    super(props);
+    this.state = this.state;
   }
 
-  handleSubmit = (e) => {
+  handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const errors = this.validateForm();
     this.setState({ errors } || { error: {} });
@@ -21,7 +29,7 @@ class Form extends Component {
 
   validateForm = () => {
     try {
-      const { data } = this.state;
+      const { data }: IStateSchema = this.state;
       const options = { abortEarly: false };
       const schemaTransform = yup.object().shape(this.schema);
       schemaTransform.validateSync(schemaTransform.cast(data), options);
@@ -32,8 +40,8 @@ class Form extends Component {
     }
   };
 
-  getFormErrors(err) {
-    const errors = {};
+  getFormErrors(err: any) {
+    const errors: any = {};
     const fieldErrors = groupBy(err.inner, 'path');
     const fields = keys(fieldErrors);
 
@@ -46,9 +54,9 @@ class Form extends Component {
     return errors;
   }
 
-  handleChange = ({ target }) => {
-    const { data, error } = this.state;
-    const errors = { ...error };
+  handleChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+    const { data, errors: stateErr } = this.state;
+    const errors = { ...stateErr };
     const errorMessage = this.validateField(target);
 
     if (errorMessage) errors[target.name] = errorMessage;
@@ -56,25 +64,25 @@ class Form extends Component {
     this.setState({ data: { ...data, [target.name]: target.value }, errors: { ...errors } });
   };
 
-  validateField = ({ name, value }) => {
+  validateField = ({ name, value }: EventTarget & HTMLInputElement) => {
     try {
       const obj = { [name]: value };
       const fieldSchema = { [name]: this.schema[name] };
       const schemaTransform = yup.object().shape(fieldSchema);
       schemaTransform.validateSync(obj);
       return null;
-    } catch (err) {
+    } catch (err: any) {
       return err.errors[0]
     }
   };
 
-  handleSelect = ({ target }) => {
+  handleSelect = ({ target }: React.ChangeEvent<HTMLSelectElement>) => {
     const { data } = this.state;
     const value = ((target.value).trim() === "Select") ? null : target.value;
     if (target.value) return this.setState({ data: { ...data, [target.id]: value } });
   };
 
-  renderInput = (label, name, type = 'text') => {
+  renderInput = (label: string, name: string, type = 'text') => {
     const { data, errors } = this.state;
 
     return (
@@ -87,13 +95,13 @@ class Form extends Component {
     );
   };
 
-  renderSelect = (dataListName, name, label) => {
-    const { data: { [dataListName]: lists }, errors } = this.state;
-    return (<Select name={[name]} options={lists} onChange={this.handleSelect} label={[label]} error={errors[name]}
+  renderSelect = (dataListName: string, name: string, label: string) => {
+    const { data: { [dataListName]: lists }, errors }: IStateSchema = this.state;
+    return (<Select name={name} options={lists} onChange={this.handleSelect} label={label} error={errors[name]}
     />);
   };
 
-  renderButton = label => {
+  renderButton = (label: string) => {
     return (
       <button type='submit' className='btn btn-primary'>
         {label}
@@ -101,6 +109,14 @@ class Form extends Component {
     );
   };
 
+  doSubmit() {
+    throw new Error('Method not implemented.');
+  }
+
+  state: IStateSchema = { data: {}, errors: {} }
+
+
 }
+
 
 export default Form;

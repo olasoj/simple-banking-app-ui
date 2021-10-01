@@ -1,11 +1,15 @@
-import React from 'react';
+import React, { FC, ReactNode } from "react";
+import Table from '../../../generic/component/table/Table';
 
-import Table from '../../generic/component/table/Table';
 
+interface Props {
+  users: Array<ColumnBody>;
+  onDelete: (id: string) => void;
+}
 
-const UsersTable = ({ users, onDelete }) => {
+const UsersTable: FC<Props> = ({ users, onDelete }) => {
 
-  const columns = [
+  const columns: Array<ColumnHeader> = [
     { id: 1, label: 'Username', path: '_username' },
     { id: 2, label: 'Full Name', path: '_fullName' },
     { id: 3, label: 'Email', path: '_email' },
@@ -18,13 +22,24 @@ const UsersTable = ({ users, onDelete }) => {
   return (<Table data={users} columns={columns} />);
 };
 
-function renderDeleteButton(onDelete) {
-  return user => (
+function renderDeleteButton(onDelete: any) {
+  return (user: any) => (
     <button className='btn btn-danger btn-sm' onClick={e => onDelete(user._id)}>
       Delete
     </button>
   );
 }
+
+interface ColumnHeader {
+  id: number;
+  label?: string;
+  path?: string;
+  content?: (param: any) => {};
+};
+
+interface ColumnBody {
+  id: number;
+};
 
 
 export default UsersTable;

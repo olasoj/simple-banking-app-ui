@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { FC } from 'react';
 
 
-const Select = ({ options, name, label, onChange, error }) => {
+const Select: FC<Props> = ({ options, name, label, onChange, error }) => {
   return (
     <div className='input-group mb-3 m-2'>
       <div className='input-group-append'>
@@ -12,7 +12,7 @@ const Select = ({ options, name, label, onChange, error }) => {
 
       <select onChange={e => onChange(e)} defaultValue={''}
         className="form-select form-select-sm" id={name}>
-        <option defaultValue>Select</option>
+        <option defaultValue="">Select</option>
 
         {options && options.map(option => (
           <option key={options.indexOf(option)} value={option}>
@@ -26,5 +26,15 @@ const Select = ({ options, name, label, onChange, error }) => {
     </div>
   );
 };
+
+
+interface Props {
+  label: string;
+  options: Array<string>;
+  onChange: (p: React.ChangeEvent<HTMLSelectElement>) => void;
+
+  name: string;
+  error?: any;
+}
 
 export default Select;

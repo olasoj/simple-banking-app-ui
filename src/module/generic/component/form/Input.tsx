@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { FC } from 'react';
 
-const Input = ({ label, name, error, ...rest }) => {
+const Input: FC<Props> = ({ label, name, error, ...rest }) => {
   return (
     <div className="mb-3">
       <label className="form-label" htmlFor={name}>{label}</label>
@@ -16,5 +16,16 @@ const Input = ({ label, name, error, ...rest }) => {
     </div>
   );
 };
+
+interface Props {
+  label: string;
+  name: string;
+  error: any;
+  type: string;
+  placeholder: string;
+  value: any;
+  onChange: (p: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
 
 export default Input;

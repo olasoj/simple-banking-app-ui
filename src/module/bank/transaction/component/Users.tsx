@@ -2,15 +2,15 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-import { getAllUsers, getDistinctValues, removeUser } from '../userService'
+import * as transactionService from '../transactionService'
 
 import UserTable from './UsersTable';
-import Form from '../../generic/component/form/Form';
-import Pagination from '../../pagination/Pagination';
+import Form from '../../../generic/component/form/Form';
+import Pagination from '../../../pagination/Pagination';
 
 class Users extends Form {
-  constructor() {
-    super();
+  constructor(props: any) {
+    super(props);
     this.state = {
       data: {
         name: '',
@@ -33,44 +33,44 @@ class Users extends Form {
     }
   }
 
-  deleteUser = async id => {
-    const { data } = this.state
-    const users = [...data.users];
+  deleteUser = async (id: string) => {
+    // const { data } = this.state
+    // const users = [...data.users];
 
-    const newUsers = users.filter(user => user._id !== id);
-    this.setState({ data: { ...data, totalNumberOfUser: --data.totalNumberOfUser, users: [...newUsers] } });
-    await this.handleDeleteUser(id, data, users);
+    // const newUsers = users.filter(user => user._id !== id);
+    // this.setState({ data: { ...data, totalNumberOfUser: --data.totalNumberOfUser, users: [...newUsers] } });
+    // await this.handleDeleteUser(id, data, users);
   };
 
-  handlePageChange = async (pageNumber) => {
-    const { data } = this.state
-    data.page = pageNumber;
-    await this.getUserDetailsData()
+  handlePageChange = async (pageNumber: number) => {
+    // const { data } = this.state
+    // data.page = pageNumber;
+    // await this.getUserDetailsData()
   };
 
   doSubmit = async () => {
-    const { data } = this.state
-    data.page = 1;
-    await this.getUserDetailsData()
+    // const { data } = this.state
+    // data.page = 1;
+    // await this.getUserDetailsData()
   };
 
-  async handleDeleteUser(id, data, users) {
-    try {
-      const { data: { message } } = await removeUser(id);
-      toast.success(message);
-    } catch (err) {
-      if (err.response && err.response.status === 404) toast.error('User not found');
-      this.setState({ data: { ...data, users: users } });
-    }
+  async handleDeleteUser(id: string, data: any, users: any) {
+    // try {
+    //   const { data: { message } } = await removeUser(id);
+    //   toast.success(message);
+    // } catch (err: any) {
+    //   if (err.response && err.response.status === 404) toast.error('User not found');
+    //   this.setState({ data: { ...data, users: users } });
+    // }
   }
 
   async getUserDetailsData() {
     toast.info("Retrieving users")
     const { data } = this.state;
     try {
-      const { data: users } = await getAllUsers(this.getUserRequestBody(data));
-      const { data: distinctValues } = await getDistinctValues();
-      this.resolveUsersState(users, distinctValues, data);
+      // const { data: users } = await getAllUsers(this.getUserRequestBody(data));
+      // const { data: distinctValues } = await getDistinctValues();
+      // this.resolveUsersState(users, distinctValues, data);
       toast.success("Successfully retrieved users")
     } catch (err) {
       this.setState({ data: { ...data } });
@@ -78,11 +78,11 @@ class Users extends Form {
     }
   }
 
-  resolveUsersState(users, distinctValues, data) {
+  resolveUsersState(users: any, distinctValues: any, data: any) {
     this.setState({ data: this.getNewStateData(data, users, distinctValues), });
   }
 
-  getNewStateData(data, users, distinctValues) {
+  getNewStateData(data: any, users: any, distinctValues: any) {
     return {
       ...data, totalNumberOfUser: users._totalNumberOfUser,
       page: users._pageNumber, pageSize: users._pageSize,
@@ -92,7 +92,7 @@ class Users extends Form {
     };
   }
 
-  getUserRequestBody(data) {
+  getUserRequestBody(data: any) {
     return {
       userPageRequest: { pageNumber: data.page, pageSize: data.pageSize },
       userFilterRequest: { workCategory: data.selectedWorkCategory, interest: data.selectedInterest }
@@ -100,22 +100,22 @@ class Users extends Form {
   }
 
   render() {
-    const { data: { users, pageSize, page, totalNumberOfUser } } = this.state;
+    // const { data: { users, pageSize, page, totalNumberOfUser } } = this.state;
 
     return (
       <div className='row'>
-        <div className='col'>
-          {this.getDistinctForm()}
-          {this.getTableMetaData(totalNumberOfUser)}
+        {/* //   <div className='col'>
+      //     {this.getDistinctForm()}
+      //     {this.getTableMetaData(totalNumberOfUser)}
 
-          <UserTable users={users} onDelete={this.deleteUser} />
-          <Pagination totalNumberOfRecord={totalNumberOfUser} pageSize={pageSize} currentPage={page} onPageChange={this.handlePageChange} />
-        </div>
+      //     <UserTable users={users} onDelete={this.deleteUser} />
+      //     <Pagination totalNumberOfRecord={totalNumberOfUser} pageSize={pageSize} currentPage={page} onPageChange={this.handlePageChange} />
+      //   </div> */}
       </div>
     );
   }
 
-  getTableMetaData(totalNumberOfUsers) {
+  getTableMetaData(totalNumberOfUsers: number) {
     return <div className='row'>
       <div className='col'>
         <p>{totalNumberOfUsers} users(s) found</p>

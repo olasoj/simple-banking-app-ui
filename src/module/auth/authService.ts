@@ -1,24 +1,19 @@
-import http from './httpService';
-import config from '../config.json';
+import http, { header } from '../http/httpConfig';
 import jwtDecode from 'jwt-decode';
+import { string } from 'yup/lib/locale';
 
-http.setJwt(getJwt());
 
 //get the url for users
 const apiUrl = '/auth';
 
 const tokenKey = 'token';
 
-export async function login(email, password) {
-  const { data: jwt } = await http.post(
-    apiUrl,
-    { email, password },
-    config.header
-  );
+export async function login(email: string, password: string) {
+  const { data: { jwt } }: typeof Res = await http.post(apiUrl, { email, password }, { headers: { ...header } });
   localStorage.setItem(tokenKey, jwt);
 }
 
-export function loginWithJwt(jwt) {
+export function loginWithJwt(jwt: string) {
   localStorage.setItem(tokenKey, jwt);
 }
 
@@ -26,10 +21,13 @@ export function logout() {
   localStorage.removeItem(tokenKey);
 }
 
+http.setJwt(getJwt());
+
+
 export function getCurrentUser() {
   try {
     const jwt = localStorage.getItem(tokenKey);
-    return jwtDecode(jwt);
+    return (jwt) ? jwtDecode(jwt) : null;
   } catch (err) {
     return null;
   }
@@ -44,9 +42,9 @@ export function getJwt() {
 
 export function checkIfIsAdmin() {
   try {
-    const jwt = localStorage.getItem(tokenKey);
-    const user = jwtDecode(jwt);
-    return user.isAdmin;
+    const jwt: string | null = localStorage.getItem(tokenKey);
+    const user: typeof User | null = (jwt) ? jwtDecode(jwt) : null;
+    return (user) ? user.isAdmin : false;
   } catch (err) {
     return null;
   }
@@ -61,6 +59,12 @@ export default {
   checkIfIsAdmin
 };
 
-// export function deleteMovie(id) {
-//   return http.delete(getMovieURL(id));
-// }
+const User = {
+  isAdmin: true
+}
+
+const Res = {
+  data: {
+    jwt: typeof string
+  }
+}
