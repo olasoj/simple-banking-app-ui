@@ -13,6 +13,7 @@ import NavBar from "./module/navigation/component/NavBar"
 import NewAccountForm from "./module/bank/account/component/NewAccountForm"
 import UserAccountInfo from "./module/bank/account/component/UserAccountInfo"
 import NotFound from "./module/notfound/component/NotFound"
+import WithdrawalForm from "./module/bank/transaction/component/WidthdrawForm"
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
             <Switch>
               <Route path='/users/add' component={NewAccountForm} />
               <Route path='/account/info' render={(props) => <UserAccountInfo {...props} />} />
+              <Route path='/transaction/withdraw' component={WithdrawalForm} />
               <Redirect exact from='/' to='/users' />
               <Route path='/not-found' component={NotFound} />
               <Redirect to='/not-found' />
