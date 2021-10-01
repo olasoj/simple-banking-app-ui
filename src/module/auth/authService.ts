@@ -1,16 +1,16 @@
 import http, { header } from '../http/httpConfig';
 import jwtDecode from 'jwt-decode';
-import { string } from 'yup/lib/locale';
+import { LoginSchema } from './module/AuthReqResModel';
 
 
 //get the url for users
-const apiUrl = '/auth';
+const apiUrl = '/login';
 
 const tokenKey = 'token';
 
-export async function login(email: string, password: string) {
-  const { data: { jwt } }: typeof Res = await http.post(apiUrl, { email, password }, { headers: { ...header } });
-  localStorage.setItem(tokenKey, jwt);
+export async function login(data: LoginSchema) {
+  const { data: { accessToken } }: Res = await http.post(apiUrl, { ...data }, { headers: { ...header } });
+  localStorage.setItem(tokenKey, accessToken);
 }
 
 export function loginWithJwt(jwt: string) {
@@ -63,8 +63,8 @@ const User = {
   isAdmin: true
 }
 
-const Res = {
+interface Res {
   data: {
-    jwt: typeof string
+    accessToken: string
   }
 }
