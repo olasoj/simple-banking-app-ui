@@ -11,7 +11,7 @@ import logo from './logo.svg';
 import './App.css';
 import NavBar from "./module/navigation/component/NavBar"
 import NewAccountForm from "./module/bank/account/component/NewAccountForm"
-import Users from "./module/bank/account/component/Users"
+import UserAccountInfo from "./module/bank/account/component/UserAccountInfo"
 import NotFound from "./module/notfound/component/NotFound"
 
 function App() {
@@ -24,7 +24,7 @@ function App() {
           <main className='container'>
             <Switch>
               <Route path='/users/add' component={NewAccountForm} />
-              <Route path='/users' render={(props) => <Users {...props} />} />
+              <Route path='/account/info' render={(props) => <UserAccountInfo {...props} />} />
               <Redirect exact from='/' to='/users' />
               <Route path='/not-found' component={NotFound} />
               <Redirect to='/not-found' />

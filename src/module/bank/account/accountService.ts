@@ -1,10 +1,10 @@
-import { NewAccountResponse, NewAccountRequestBody } from './model/NewAccountRequestModel';
+import { NewAccountResponse, NewAccountRequestBody, AccountInfoResponseBody } from './model/NewAccountReqResModel';
 import http, { header } from '../../http/httpConfig';
 
 const apiUrl = '';
 
-export async function getAccountInfo(getUsersRequestBody: any) {
-  return await http.get(`${apiUrl}/account_info`, { headers: { ...header } });
+export async function getAccountInfo(): Promise<AccountInfoResponseBody> {
+  return await http.get(`${apiUrl}/account_info/0000000001`, { headers: { ...header } });
 }
 
 export async function createAccount(newAccountRequestBody: NewAccountRequestBody): Promise<NewAccountResponse> {

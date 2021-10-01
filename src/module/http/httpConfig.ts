@@ -4,7 +4,8 @@ import { toast } from 'react-toastify';
 const adapter = axios.create({
     baseURL: process.env.REACT_APP_API_URL,
     headers: {
-        Accept: 'application/json;charset=UTF-8'
+        Accept: 'application/json;charset=UTF-8',
+        Authorization: "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIwMDAwMDAwMDAxIiwiaWF0IjoxNjMzMTA1NDI2LCJleHAiOjE2MzMxMDY2MjZ9.vuCXpEGzsJ6UvQBn_uu6AW4eZDUxgd34PN3h2N9BGVi9iyrLDHOTLvy29B7AyA4bWsPDy9sDEPkVW3UfhUcOpw"
     },
 });
 
@@ -18,8 +19,9 @@ axios.interceptors.response.use(undefined, (error) => {
     return Promise.reject(error)
 })
 
+axios.defaults.headers.common['Authorization'] = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIwMDAwMDAwMDAxIiwiaWF0IjoxNjMzMTA1NDI2LCJleHAiOjE2MzMxMDY2MjZ9.vuCXpEGzsJ6UvQBn_uu6AW4eZDUxgd34PN3h2N9BGVi9iyrLDHOTLvy29B7AyA4bWsPDy9sDEPkVW3UfhUcOpw"
 function setJwt(jwt: string | null) {
-    // adapter.defaults.headers.common['Authorization'] = { 'Authorization': `bearer ${jwt}` }
+    axios.defaults.headers.common['Authorization'] = { 'Authorization': `bearer ${jwt}` }
 }
 
 export const header = {

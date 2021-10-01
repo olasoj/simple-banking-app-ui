@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import * as yup from 'yup';
 import Form from '../../../generic/component/form/Form';
 import * as AccountService from '../accountService';
-import { NewAccountRequest, NewAccountResponse, NewAccountResponseErr } from '../model/NewAccountRequestModel';
+import { NewAccountRequest, NewAccountResponse, NewAccountResponseErr } from '../model/NewAccountReqResModel';
 
 class NewAccountForm extends Form {
   constructor(props: any) {
