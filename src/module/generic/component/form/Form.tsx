@@ -10,7 +10,7 @@ interface IStateSchema {
   errors: any;
 };
 
-class Form extends Component<IStateSchema> {
+class Form extends Component<any, any>{
   schema: any;
 
   constructor(props: any) {

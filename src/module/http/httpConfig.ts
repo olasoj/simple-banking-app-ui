@@ -1,6 +1,13 @@
 import axios from "axios"
 import { toast } from 'react-toastify';
 
+const adapter = axios.create({
+    baseURL: process.env.REACT_APP_API_URL,
+    headers: {
+        Accept: 'application/json;charset=UTF-8'
+    },
+});
+
 axios.defaults.baseURL = process.env.REACT_APP_API_URL
 axios.interceptors.response.use(undefined, (error) => {
     const expectedErr =
@@ -12,7 +19,7 @@ axios.interceptors.response.use(undefined, (error) => {
 })
 
 function setJwt(jwt: string | null) {
-    // axios.defaults.headers.common = { 'Authorization': `bearer ${jwt}` }
+    // adapter.defaults.headers.common['Authorization'] = { 'Authorization': `bearer ${jwt}` }
 }
 
 export const header = {
