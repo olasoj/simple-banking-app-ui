@@ -19,7 +19,7 @@ axios.interceptors.response.use(undefined, (error) => {
     return Promise.reject(error)
 })
 
-axios.defaults.headers.common['Authorization'] = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIwMDAwMDAwMDAxIiwiaWF0IjoxNjMzMTEzNDY5LCJleHAiOjE2MzMxMTQ2Njl9.YLQv3A8f-Vbpd67rthWpPCSqjQTA_Qm9Fv1TagsoNmhzGb2mFORw3cbPAGFUQ6S2r-5ZMW1tQ1cPeo974t9Xqw"
+axios.defaults.headers.common['Authorization'] = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIwMDAwMDAwMDAxIiwiaWF0IjoxNjMzMTE1NzQ4LCJleHAiOjE2MzMxMTY5NDh9.E5PG8K-zG0U1KWQtS1CN307cL-ILHoWzBxpBP_i36D4CAFchovaztmXU4ZdYDxUr3IVIjeS9s31GoK1m7RwSYw"
 function setJwt(jwt: string | null) {
     axios.defaults.headers.common['Authorization'] = { 'Authorization': `bearer ${jwt}` }
 }

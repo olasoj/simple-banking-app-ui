@@ -45,6 +45,31 @@ export interface TransactionResponse {
     }
 }
 
+export interface TransactionHistoryResponse {
+    data: Array<TransactionHistory>;
+}
+
+export interface TransactionHistory {
+    data: {
+        transactionDate: string;
+        transactionType: string;
+        amount: number
+        narration: string;
+        accountBalance: number;
+    }
+}
+
+
+export const TransactionHistoryData = {
+    data: [{
+        transactionDate: "",
+        transactionType: "",
+        amount: 0,
+        narration: 0,
+        accountBalance: 0
+    }]
+}
+
 export interface TransactionResponseErr {
     status: number;
     data: {

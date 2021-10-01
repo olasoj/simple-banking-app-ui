@@ -1,10 +1,10 @@
 import http, { header } from '../../http/httpConfig';
-import { DepositRequestBody, TransactionResponse, WithdrawRequestBody, } from './model/NewAccountReqResModel';
+import { DepositRequestBody, TransactionResponse, WithdrawRequestBody, } from './model/TransactionReqResModel';
 
 const apiUrl = '';
 
-export async function getAccountStatement(getUsersRequestBody: any) {
-  return await http.post(`${apiUrl}/account_statement`, { ...getUsersRequestBody }, { headers: { ...header } });
+export async function getAccountStatement() {
+  return await http.get(`${apiUrl}/account_statement/0000000001`, { headers: { ...header } });
 }
 
 export async function deposit(depositRequestBody: DepositRequestBody): Promise<TransactionResponse> {

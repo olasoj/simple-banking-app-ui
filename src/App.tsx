@@ -15,6 +15,7 @@ import UserAccountInfo from "./module/bank/account/component/UserAccountInfo"
 import NotFound from "./module/notfound/component/NotFound"
 import WithdrawalForm from "./module/bank/transaction/component/WidthdrawForm"
 import DepositForm from "./module/bank/transaction/component/DepositForm"
+import TransactionHistory from "./module/bank/transaction/component/TransactionHistory"
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
           <main className='container'>
             <Switch>
               <Route path='/users/add' component={NewAccountForm} />
+              <Route path='/transaction/history' component={TransactionHistory} />
               <Route path='/account/info' render={(props) => <UserAccountInfo {...props} />} />
               <Route path='/transaction/deposit' component={DepositForm} />
               <Route path='/transaction/withdraw' component={WithdrawalForm} />

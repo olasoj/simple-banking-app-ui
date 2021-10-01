@@ -3,7 +3,7 @@ import { toast } from 'react-toastify';
 
 import * as yup from 'yup';
 import Form from '../../../generic/component/form/Form';
-import { DepositRequestDefaultData, TransactionResponse, TransactionResponseErr, WithdrawRequestDefaultData } from '../model/NewAccountReqResModel';
+import { DepositRequestDefaultData, TransactionResponse, TransactionResponseErr } from '../model/TransactionReqResModel';
 import * as transactionService from '../transactionService';
 
 class DepositForm extends Form {
