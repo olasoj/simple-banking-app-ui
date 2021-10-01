@@ -21,6 +21,13 @@ export const NewAccountRequest = {
 };
 
 
+export const DepositRequestDefaultData = {
+    accountNumber: "", amount: 0
+};
+
+export interface DepositRequestBody {
+    accountNumber: string, amount: number
+};
 
 export const WithdrawRequestDefaultData = {
     accountNumber: "", accountPassword: "", withdrawnAmount: 0
