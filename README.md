@@ -1,46 +1,69 @@
-# Getting Started with Create React App
+![Logo](https://i.postimg.cc/Prh7tGGn/simple-banking-app-logo.jpg)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Banking Web Application
 
-## Available Scripts
+A Banking Web Application that simulates the day-to-day operations of a bank.
 
-In the project directory, you can run:
+## Authors
 
-### `npm start`
+- [@olasoj](https://www.github.com/olasoj)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## 🚀 About Me
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+An analytical and solution-oriented computer scientist with significant practical and professional experience. Capable of motivating oneself and others. Passionate about programming and educating the next generation of technology consumers and innovators.
 
-### `npm test`
+## Features
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+**The following functionalities are available in this application:**
 
-### `npm run build`
+- Users can request their account balance by entering their account number and account password. Provided the account exists.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Users can deposit any amount less than $1,000,000.00 to any account number, and the funds will be credited to the account in real-time. This is subject to the following constraints: The amount is between $1000,000.00 and $1.00, and the account exists.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- Users can request transaction history.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- Users can withdraw if the account balance after deducting the withdrawn amount from the current balance is at least $500, the withdrawal amount is larger than $1.00, and the account exists.
 
-### `npm run eject`
+- Users can create an account and receive a unique 10-digit account number after signing up. When registering, the user must provide an account name that does not already exist on the platform, as well as a minimum deposit of $500.00.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+- The account number and password are used to authenticate the user, which results in the user receiving an access token if successful.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- Except for login and registration, every request must have a valid access token.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+- This system was built using the spring-boot framework with spring security, without a database, and following the best principles in software engineering.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## Environment Variables
 
-## Learn More
+`REACT_APP_API_URL`
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Run Locally
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Clone the project
+
+```bash
+   git clone -b main https://github.com/olasoj/simple-banking-app-ui.git
+```
+
+Go to the project directory
+
+```bash
+  cd simple-banking-app
+```
+
+Start the simple-banking-app
+
+```bash
+    mvn spring-boot:run
+```
+
+## Documentation
+
+[Documentation](https://banking-api-doc.surge.sh/#account-create-account-post)
+
+[API](https://simple-banking-application.herokuapp.com/)
+
+## Tech Stack
+
+**Client:** Postman
+
+**Server:** Java, Spring boot
