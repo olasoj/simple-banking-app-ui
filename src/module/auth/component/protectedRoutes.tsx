@@ -6,7 +6,7 @@ import auth from '../authService';
 interface Props {
   path: string;
   component?: React.ComponentType<any> | React.ComponentType<RouteComponentProps<any, any, unknown>>;
-  render: any
+  render: (p: any) => {}
 }
 
 const ProtectedRoutes: FC<Props> = ({ path, component: Component, render, ...rest }) => {

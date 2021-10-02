@@ -18,6 +18,7 @@ import TransactionHistory from "./module/bank/transaction/component/TransactionH
 import LoginForm from "./module/auth/component/LoginForm"
 import ProtectedRoutes from "./module/auth/component/protectedRoutes"
 import auth from './module/auth/authService';
+import Logout from "./module/auth/component/logout"
 
 
 class App extends Component<any, any>{
@@ -39,12 +40,14 @@ class App extends Component<any, any>{
               <Switch>
                 <Route path='/login' component={LoginForm} />
                 <Route path='/account/new' component={NewAccountForm} />
-                <ProtectedRoutes path='/transaction/history' component={TransactionHistory} render />
 
-                <Route path='/account/info' render={(props) => <UserAccountInfo {...props} />} />
-                <Route path='/transaction/deposit' component={DepositForm} />
-                <Route path='/transaction/withdraw' component={WithdrawalForm} />
-                <Redirect exact from='/' to='/users' />
+                <ProtectedRoutes path='/transaction/history' component={TransactionHistory} render={(p: any) => { return {}; }} />
+                <ProtectedRoutes path='/account/info' render={(props) => <UserAccountInfo {...props} />} />
+                <ProtectedRoutes path='/transaction/deposit' component={DepositForm} render={(p: any) => { return {}; }} />
+                <ProtectedRoutes path='/transaction/withdraw' component={WithdrawalForm} render={(p: any) => { return {}; }} />
+                <ProtectedRoutes path='/logout' component={Logout} render={(p: any) => { return {}; }} />
+
+                <Redirect exact from='/' to={user ? '/account/info' : '/account/new'} />
                 <Route path='/not-found' component={NotFound} />
                 <Redirect to='/not-found' />
               </Switch>
