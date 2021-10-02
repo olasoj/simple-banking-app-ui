@@ -5,9 +5,7 @@ import * as yup from 'yup';
 import auth from '../authService';
 import Form from '../../generic/component/form/Form';
 import { Redirect } from 'react-router-dom';
-import { LoginData } from '../module/AuthReqResModel';
-
-//const accountNumber = React.createRef();
+import { LoginData, NewAccountResponseErr } from '../module/AuthReqResModel';
 
 class LoginForm extends Form {
   constructor(props: any) {
@@ -34,18 +32,19 @@ class LoginForm extends Form {
     try {
       await auth.login(data);
       const { state } = this.props.location;
-      // window.location = state ? state.from.pathname : '/';
-    } catch (err) {
-      // if (err.response ) {
-      //   const errors = { ...this.state.errors };
-      //   errors.accountNumber = err.response.data;
-      //   this.setState({ errors });
-      //}
+      window.location = state ? state.from.pathname : '/';
+    } catch (err: any) {
+      if (err.response) {
+        const { status, data }: NewAccountResponseErr = err.response
+        const errors = { ...this.state.errors };
+        errors.accountNumber = status;
+        this.setState({ errors });
+      }
     }
   };
 
   render() {
-    if (auth.getCurrentUser()) return <Redirect to='/' />;
+    // if (auth.getCurrentUser()) return <Redirect to='/' />;
     return (
       <Fragment>
         <form onSubmit={e => this.handleSubmit(e)}>

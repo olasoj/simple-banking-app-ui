@@ -1,14 +1,6 @@
 import axios from "axios"
 import { toast } from 'react-toastify';
 
-const adapter = axios.create({
-    baseURL: process.env.REACT_APP_API_URL,
-    headers: {
-        Accept: 'application/json;charset=UTF-8',
-        Authorization: "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIwMDAwMDAwMDAxIiwiaWF0IjoxNjMzMTA5ODk2LCJleHAiOjE2MzMxMTEwOTZ9.5GhqBsLf5Vz6xKJ05BTLFAdMQWN_9Y0gFGztD-KpLW6m9qpzxvNeKbADUwG0jpGM-xPv6Pf51YOVHLPsxnAQZQ"
-    },
-});
-
 axios.defaults.baseURL = process.env.REACT_APP_API_URL
 axios.interceptors.response.use(undefined, (error) => {
     const expectedErr =

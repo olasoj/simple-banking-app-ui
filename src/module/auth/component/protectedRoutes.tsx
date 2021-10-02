@@ -1,13 +1,12 @@
 import React, { Component, FC, ReactComponentElement, ReactNode } from 'react';
-import { Route, Redirect } from 'react-router-dom';
+import { Route, Redirect, RouteComponentProps } from 'react-router-dom';
 import auth from '../authService';
 
 
 interface Props {
-  // any props that come into the component
   path: string;
-  component: (p: any) => JSX.Element;
-  render: (p: any) => JSX.Element;
+  component?: React.ComponentType<any> | React.ComponentType<RouteComponentProps<any, any, unknown>>;
+  render: any
 }
 
 const ProtectedRoutes: FC<Props> = ({ path, component: Component, render, ...rest }) => {
