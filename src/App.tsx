@@ -1,4 +1,4 @@
-import React, { Fragment, Component, ReactNode } from "react"
+import React, { Fragment, Component } from "react"
 import { ToastContainer } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 
@@ -47,7 +47,7 @@ class App extends Component<any, any>{
                 <ProtectedRoutes path='/transaction/withdraw' component={WithdrawalForm} render={(p: any) => { return {}; }} />
                 <ProtectedRoutes path='/logout' component={Logout} render={(p: any) => { return {}; }} />
 
-                <Redirect exact from='/' to={user ? '/account/info' : '/account/new'} />
+                <Redirect exact from='/' to={user ? '/account/info' : '/login'} />
                 <Route path='/not-found' component={NotFound} />
                 <Redirect to='/not-found' />
               </Switch>

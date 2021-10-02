@@ -4,12 +4,6 @@ import Select from './Select';
 import * as yup from 'yup';
 import { each, groupBy, keys } from 'lodash-es';
 
-
-interface IStateSchema {
-  data: any;
-  errors: any;
-};
-
 class Form extends Component<any, any>{
   schema: any;
 

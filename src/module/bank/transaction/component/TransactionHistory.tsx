@@ -19,13 +19,12 @@ class TransactionHistory extends Component<any, any> {
 
   async componentDidMount() {
     try {
-      toast.info("Creating account")
       const { data }: TransactionHistoryResponse = await transactionService.getAccountStatement();
       this.setState({ data: { transactionHistory: [...data] } })
     } catch (err: any) {
       const { status, data }: TransactionResponseErr = err.response
       if (status && status === 400) return toast.error(data.message)
-      toast.error("Server: service unavailable, please try later")
+      toast.error("An unhandled server error occurred")
     }
   }
 

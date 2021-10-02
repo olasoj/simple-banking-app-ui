@@ -1,4 +1,4 @@
-import React, { Component, FC, ReactComponentElement, ReactNode } from 'react';
+import React, { FC } from 'react';
 import { Route, Redirect, RouteComponentProps } from 'react-router-dom';
 import auth from '../authService';
 

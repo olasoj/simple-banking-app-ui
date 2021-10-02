@@ -7,7 +7,8 @@ axios.interceptors.response.use(undefined, (error) => {
         error.response &&
         error.response.status >= 400 &&
         error.response.status < 500
-    if (!expectedErr) toast.error("unexpected error")
+    if (!expectedErr) toast.error("unexpected error occurred")
+    if (error.response === 401) toast.error("Session expired; log out and log back in")
     return Promise.reject(error)
 })
 
