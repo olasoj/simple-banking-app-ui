@@ -16,28 +16,22 @@ export const LoginData = {
     accountPassword: "", accountNumber: ""
 };
 
-export const NewAccountRequest = {
-    accountName: "", accountPassword: "", initialDeposit: 0
-};
 
-export interface NewAccountRequestBody {
-    accountName: string, accountPassword: string, initialDeposit: number
-};
 
-export interface NewAccountResponse {
-    data: {
-        success: boolean,
-        message: string,
-        responseCode: number
-    }
+export interface LoginResponseErr {
+    status: number;
+    data: LoginResponseErrData
+
 }
 
-export interface NewAccountResponseErr {
-    status: number;
-    data: {
-        success: boolean,
-        message: string,
-        responseCode: number
-    };
-
+export interface LoginResponseErrData {
+    success: boolean;
+    message: string;
+    error: string;
+    status: number
+    timestamp: string;
+    errors: {
+        accountNumber: string;
+        accountPassword: string;
+    }
 }
