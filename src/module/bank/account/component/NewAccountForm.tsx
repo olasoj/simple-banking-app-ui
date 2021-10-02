@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import { Fragment } from 'react';
 import { toast } from 'react-toastify';
 
 import * as yup from 'yup';
@@ -22,27 +22,26 @@ class NewAccountForm extends Form {
 
     accountName: yup
       .string()
-      .required("Full name is required")
+      .required("Account Name is required")
       .label('Account Name'),
 
     initialDeposit: yup.number()
-      .required("Please enter a valid positive number.")
-      .positive("Please enter a valid positive number.")
-      .integer("Please enter a valid positive number.")
+      .required("Please Enter a valid amount.")
+      .positive("Please Enter a valid amount.")
+      .integer("Please Enter a valid amount.")
       .label('Initial Deposit')
   }
 
   doSubmit = async () => {
     try {
       toast.info("Creating account")
-      const { data } = this.state
-      const { data: { message } }: NewAccountResponse = await AccountService.createAccount(data);
+      const { data: { message } }: NewAccountResponse = await AccountService.createAccount(this.state.data);
       toast.success(message);
-      // this.props.history.replace("/users")
+      this.props.history.replace("/account/info")
     } catch (err: any) {
       const { status, data }: NewAccountResponseErr = err.response
       if (status && status === 400) return toast.error(data.message)
-      toast.error("Server: service unavailable, please try later")
+      toast.error("An unhandled server error occurred")
     }
   };
 
