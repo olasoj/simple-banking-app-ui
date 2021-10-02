@@ -1,6 +1,6 @@
 import http, { header } from '../http/httpConfig';
 import jwtDecode from 'jwt-decode';
-import { LoginSchema } from './module/AuthReqResModel';
+import { LoginSchema } from './model/AuthReqResModel';
 
 
 //get the url for users

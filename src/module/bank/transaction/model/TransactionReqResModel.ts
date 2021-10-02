@@ -72,10 +72,20 @@ export const TransactionHistoryData = {
 
 export interface TransactionResponseErr {
     status: number;
-    data: {
-        success: boolean,
-        message: string,
-        responseCode: number
-    };
+    data: TransactionResponseErrData
 
+}
+
+export interface TransactionResponseErrData {
+    success: boolean;
+    message: string;
+    error: string;
+    status: number
+    timestamp: string;
+    errors: {
+        accountName: string;
+        accountPassword: string;
+        withdrawnAmount: number;
+        amount: number;
+    }
 }

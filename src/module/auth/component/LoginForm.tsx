@@ -5,7 +5,7 @@ import * as yup from 'yup';
 import auth from '../authService';
 import Form from '../../generic/component/form/Form';
 import { Redirect } from 'react-router-dom';
-import { LoginData, LoginResponseErr, LoginResponseErrData } from '../module/AuthReqResModel';
+import { LoginData, LoginResponseErr, LoginResponseErrData } from '../model/AuthReqResModel';
 import { toast } from 'react-toastify';
 
 class LoginForm extends Form {
