@@ -3,7 +3,7 @@ import { toast } from 'react-toastify';
 
 import * as yup from 'yup';
 import Form from '../../../generic/component/form/Form';
-import { TransactionResponse, TransactionResponseErr, WithdrawRequestDefaultData } from '../model/TransactionReqResModel';
+import { TransactionResponse, TransactionResponseErr, TransactionResponseErrData, WithdrawRequestDefaultData } from '../model/TransactionReqResModel';
 import * as transactionService from '../transactionService';
 
 class WithdrawalForm extends Form {
@@ -25,26 +25,32 @@ class WithdrawalForm extends Form {
       .required("Account number is required")
       .label('Account Number'),
 
-    withdrawnAmount: yup.number()
+    withdrawAmount: yup.number()
       .required("Please enter a valid positive number.")
       .positive("Please enter a valid positive number.")
       .integer("Please enter a valid positive number.")
-      .label('withdrawnAmount')
+      .label('withdrawAmount')
   }
 
   doSubmit = async () => {
     try {
-      toast.info("Creating account")
       const { data } = this.state
       const { data: { message } }: TransactionResponse = await transactionService.withdraw(data);
       toast.success(message);
-      // this.props.history.replace("/users")
     } catch (err: any) {
       const { status, data }: TransactionResponseErr = err.response
+      this.handleValidationErr(status, data);
+
       if (status && status === 400) return toast.error(data.message)
-      toast.error("Server: service unavailable, please try later")
+      if (status && status === 401) return toast.error(data.message)
+      toast.error("An unhandled server error occurred")
     }
   };
+
+
+  private handleValidationErr(status: number, data: TransactionResponseErrData) {
+    if (status && status === 400 && data.errors) this.setState({ errors: { ...data.errors } });
+  }
 
   render() {
     return (
@@ -52,7 +58,7 @@ class WithdrawalForm extends Form {
         <form onSubmit={e => this.handleSubmit(e)}>
           {this.renderInput('Account Number *', 'accountNumber')}
           {this.renderInput('Account Password *', 'accountPassword', 'password')}
-          {this.renderInput('Withdraw Amount *', 'withdrawnAmount', 'number')}
+          {this.renderInput('Withdraw Amount *', 'withdrawAmount', 'number')}
 
           {this.renderButton('Withdraw')}
         </form>

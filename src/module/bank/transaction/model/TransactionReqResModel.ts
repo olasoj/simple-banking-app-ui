@@ -30,11 +30,11 @@ export interface DepositRequestBody {
 };
 
 export const WithdrawRequestDefaultData = {
-    accountNumber: "", accountPassword: "", withdrawnAmount: 0
+    accountNumber: "", accountPassword: "", withdrawAmount: 0
 };
 
 export interface WithdrawRequestBody {
-    accountNumber: string, accountPassword: string, withdrawnAmount: number
+    accountNumber: string, accountPassword: string, withdrawAmount: number
 };
 
 export interface TransactionResponse {
@@ -85,7 +85,7 @@ export interface TransactionResponseErrData {
     errors: {
         accountName: string;
         accountPassword: string;
-        withdrawnAmount: number;
+        withdrawAmount: number;
         amount: number;
     }
 }
