@@ -1,10 +1,12 @@
 import { Fragment } from 'react';
 import { toast } from 'react-toastify';
 
+
 import * as yup from 'yup';
 import Form from '../../../generic/component/form/Form';
 import * as AccountService from '../accountService';
-import { NewAccountRequest, NewAccountResponse, NewAccountResponseErr } from '../model/NewAccountReqResModel';
+import auth from '../../../auth/authService'
+import { NewAccountRequest, AccountResponseErr, AccountResponseErrData } from '../model/AccountReqResModel';
 
 class NewAccountForm extends Form {
   constructor(props: any) {
@@ -16,14 +18,13 @@ class NewAccountForm extends Form {
   }
 
   schema = {
+    accountName: yup.string()
+      .required("Account Name is required")
+      .label('Account Name'),
+
     accountPassword: yup.string()
       .required("Password is required")
       .label('Password'),
-
-    accountName: yup
-      .string()
-      .required("Account Name is required")
-      .label('Account Name'),
 
     initialDeposit: yup.number()
       .required("Please Enter a valid amount.")
@@ -34,16 +35,21 @@ class NewAccountForm extends Form {
 
   doSubmit = async () => {
     try {
-      toast.info("Creating account")
-      const { data: { message } }: NewAccountResponse = await AccountService.createAccount(this.state.data);
-      toast.success(message);
-      this.props.history.replace("/account/info")
+      const response = await AccountService.createAccount(this.state.data);
+      auth.loginWithJwt(response.headers['authorization']);
+      toast.success("Account successfully created");
+      window.location.href = ("/account/info")
     } catch (err: any) {
-      const { status, data }: NewAccountResponseErr = err.response
+      const { status, data }: AccountResponseErr = err.response
       if (status && status === 400) return toast.error(data.message)
+      this.handleValidationErr(status, data);
       toast.error("An unhandled server error occurred")
     }
   };
+
+  private handleValidationErr(status: number, data: AccountResponseErrData) {
+    if (status && status === 400 && data.errors) this.setState({ errors: { ...data.errors } });
+  }
 
   render() {
     return (

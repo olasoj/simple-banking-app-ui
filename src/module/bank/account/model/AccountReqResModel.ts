@@ -7,7 +7,7 @@ export interface AccountInfoResponseBody {
             accountPassword: number,
             balance: number
         },
-        responseCode: number
+        status: number
     }
 };
 
@@ -28,16 +28,25 @@ export interface NewAccountResponse {
     data: {
         success: boolean,
         message: string,
-        responseCode: number
+        status: number
     }
 }
 
-export interface NewAccountResponseErr {
+export interface AccountResponseErr {
     status: number;
-    data: {
-        success: boolean,
-        message: string,
-        responseCode: number
-    };
+    data: AccountResponseErrData
 
+}
+
+export interface AccountResponseErrData {
+    success: boolean;
+    message: string;
+    error: string;
+    status: number
+    timestamp: string;
+    errors: {
+        accountName: string;
+        accountPassword: string;
+        initialDeposit: number;
+    }
 }

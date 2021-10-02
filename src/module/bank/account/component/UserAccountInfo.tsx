@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 import * as accountService from '../accountService'
-import { AccountInfo, AccountInfoResponseBody, NewAccountResponseErr } from '../model/NewAccountReqResModel';
+import { AccountInfo, AccountInfoResponseBody, AccountResponseErr } from '../model/AccountReqResModel';
 
 class UserAccountInfo extends Component<any, any> {
   constructor(props: any) {
@@ -24,7 +24,7 @@ class UserAccountInfo extends Component<any, any> {
       console.log(this.state)
       // toast.success(message);
     } catch (err: any) {
-      const { status, data }: NewAccountResponseErr = err.response
+      const { status, data }: AccountResponseErr = err.response
       if (status && status === 400) return toast.error(data.message)
       toast.error("Server: service unavailable, please try later")
     }

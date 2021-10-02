@@ -15,13 +15,13 @@ class Form extends Component<any, any>{
 
   constructor(props: any) {
     super(props);
-    this.state = this.state;
+    this.state = { ...this.stateData };
   }
 
   handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const errors = this.validateForm();
-    this.setState({ errors } || { error: {} });
+    (errors) ? this.setState({ errors }) : this.setState({ errors: { ...this.state.errors } });
 
     if (errors) return;
     this.doSubmit();
@@ -29,12 +29,12 @@ class Form extends Component<any, any>{
 
   validateForm = () => {
     try {
-      const { data }: IStateSchema = this.state;
+      const { data }: Readonly<any> = this.state;
       const options = { abortEarly: false };
       const schemaTransform = yup.object().shape(this.schema);
       schemaTransform.validateSync(schemaTransform.cast(data), options);
 
-      return '';
+      return undefined;
     } catch (err) {
       return this.getFormErrors(err);
     }
@@ -96,7 +96,7 @@ class Form extends Component<any, any>{
   };
 
   renderSelect = (dataListName: string, name: string, label: string) => {
-    const { data: { [dataListName]: lists }, errors }: IStateSchema = this.state;
+    const { data: { [dataListName]: lists }, errors }: Readonly<any> = this.state;
     return (<Select name={name} options={lists} onChange={this.handleSelect} label={label} error={errors[name]}
     />);
   };
@@ -113,7 +113,7 @@ class Form extends Component<any, any>{
     throw new Error('Method not implemented.');
   }
 
-  state: IStateSchema = { data: {}, errors: {} }
+  stateData: Readonly<any> = { data: {}, errors: {} }
 
 
 }
