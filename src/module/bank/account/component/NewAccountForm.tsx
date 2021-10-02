@@ -41,8 +41,8 @@ class NewAccountForm extends Form {
       window.location.href = ("/account/info")
     } catch (err: any) {
       const { status, data }: AccountResponseErr = err.response
-      if (status && status === 400) return toast.error(data.message)
       this.handleValidationErr(status, data);
+      if (status && status === 400) return toast.error(data.message)
       toast.error("An unhandled server error occurred")
     }
   };

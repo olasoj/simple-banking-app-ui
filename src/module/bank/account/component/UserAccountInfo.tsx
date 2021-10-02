@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
@@ -16,27 +16,25 @@ class UserAccountInfo extends Component<any, any> {
 
   async componentDidMount() {
     try {
-      toast.info("Creating account")
-      // const { data } = this.state
       const { data }: AccountInfoResponseBody = await accountService.getAccountInfo();
-      console.log(data)
       this.setState({ data: { ...data.account } })
-      console.log(this.state)
       // toast.success(message);
     } catch (err: any) {
       const { status, data }: AccountResponseErr = err.response
-      if (status && status === 400) return toast.error(data.message)
-      toast.error("Server: service unavailable, please try later")
+      if (status && status === 401) return toast.error(data.message)
+      toast.error("An unhandled server error occurred")
     }
   }
 
   render() {
-    // const { data: { users, pageSize, page, totalNumberOfUser } } = this.state;
+    const { data } = this.state;
 
     return (
       <div className='row'>
         <div className='col'>
-          <p></p>
+          <p>account name: {data.accountName}</p>
+          <p>account number: {data.accountNumber}</p>
+          <p>account balance: {data.balance}</p>
         </div>
       </div>
     );

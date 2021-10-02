@@ -4,7 +4,7 @@ export interface AccountInfoResponseBody {
         message: undefined,
         account: {
             accountName: string,
-            accountPassword: number,
+            accountNumber: string,
             balance: number
         },
         status: number
@@ -13,7 +13,7 @@ export interface AccountInfoResponseBody {
 
 
 export const AccountInfo = {
-    accountName: "", accountNumber: "", deposit: 0
+    accountName: null, accountNumber: null, deposit: null
 };
 
 export const NewAccountRequest = {
