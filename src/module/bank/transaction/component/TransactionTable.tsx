@@ -1,12 +1,12 @@
-import React, { FC, ReactNode } from "react";
+import React, { FC } from "react";
 import Table from '../../../generic/component/table/Table';
 
 
 interface Props {
-  users: Array<ColumnBody>;
+  transactions: Array<ColumnBody>;
 }
 
-const UsersTable: FC<Props> = ({ users }) => {
+const TransactionTable: FC<Props> = ({ transactions: users }) => {
 
   const columns: Array<ColumnHeader> = [
     { id: 1, label: 'Transaction Date', path: 'transactionDate' },
@@ -31,4 +31,4 @@ interface ColumnBody {
 };
 
 
-export default UsersTable;
+export default TransactionTable;

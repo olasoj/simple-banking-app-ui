@@ -11,7 +11,7 @@ const TableBody: FC<Props> = ({ data, columns }) => {
     <Fragment>
       <tbody>
         {data.map(item => (
-          <tr key={item.id}>
+          <tr key={item.id || data.indexOf(item)}>
             {columns.map(column => (
               <Fragment key={column.id}>
                 <td> {renderCell(item, column)}</td>
